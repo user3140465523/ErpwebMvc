@@ -4,6 +4,9 @@
 }
 
 <h1>lists</h1>
+<head>
+    
+</head>
 <table >
     <thead>
         <tr>
@@ -15,48 +18,31 @@
             <td>库存量</td>
         </tr>
     </thead>
-    <tbody id="td">
-
-    </tbody>
+  
 </table>
 <script>
     $.ajax({
-        url: "https://localhost:44395/api/Goods/Show",
-        datatype: "json",
-        type: "Get",
-        success: function (date) {
-            $("#tb").empty();
+        url: "https://localhost:44370/api/Goods/Show",
+        dataType: "json",
+        type:"Get",
+        success: function (data) {
            
-            $(date).each(function () {
-
-               
-                $("#tb"). hnj\ kj.(
-                    '<tr>' +
-                    '<td>' +
-                    this.Gid +
-                    '</td>' +
-                    '<td>' +
-                    this.Gname +
-                    '</td>' +
-                    '<td>' +
-                    this.Gscdata +
-                    '</td>' +
-                    '<td>' +
-                    this.Gbz +
-                    '</td>' +
-                    '<td>' +
-                    this.Gzxbz +
-                    '</td>' +
-                    '<td>' +
-                    this.Gphone +
-                    '</td>' +
-                    '<td>' +
-                    this.num +
-                    '</td>' +
-                    '</tr>'
-                );
-            }
+            $("table tr:gt(0)").remove();
+            $(data).each(function () {
+                var tr = ' <tr>'
+                    + '<td>' + this.Gid + '</td>'
+                    + '<td>' + this.Gname + '</td>'
+                    + '<td>' + this.Gscdata + '</td>'
+                    + '<td>' + this.Gbz + '</td>'
+                    + '<td>' + this.Gzxbz + '</td>'
+                    + '<td>' + this.Gphone + '</td>'
+                    + '<td>' + this.num + '</td>'
+                    + '</tr >'
+                $("table").append(tr);
+            })
         }
+
     })
+
    
 </script>
