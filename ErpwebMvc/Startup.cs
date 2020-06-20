@@ -50,7 +50,7 @@ namespace ErpwebMvc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=list}/{action=Show}/{id?}");
             });
         }
     }

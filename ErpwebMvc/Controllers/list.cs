@@ -12,10 +12,7 @@ namespace ErpwebMvc.Controllers
         {
             return View();
         }
-        public IActionResult lists()
-        {
-            return View();
-        }
+        
         public IActionResult Show()
         {
             return View();
