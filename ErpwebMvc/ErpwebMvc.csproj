@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Content Remove="Views\lists.cshtml" />
-    <Content Remove="Views\list\lists.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

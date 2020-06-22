@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>Erp</title>
     <script src="~/layui/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
@@ -54,7 +54,7 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">生产管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">生产排期</a></dd>
+                            <dd><a href="Boss/ProduceShow">生产排期</a></dd>
 
 
                         </dl>
@@ -62,20 +62,20 @@
                     <li class="layui-nav-item">
                         <a href="javascript:;">员工管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">所有员工</a></dd>
+                            <dd><a href="Boss/UserinfoShow">所有员工</a></dd>
                             <dd><a href="javascript:;">入职员工</a></dd>
                             <dd><a href="javascript:;">开除员工</a></dd>
-                            <dd><a href="javascript:;">修改员工</a></dd>
+                            <dd><a href="javascript:;">员工信息修改</a></dd>
 
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">库存管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">查看库存</a></dd>
+                            <dd><a href="Boss/GoodsShow">查看库存</a></dd>
                             <dd><a href="javascript:;">库存加入</a></dd>
                             <dd><a href="javascript:;">库存删除</a></dd>
-                            <dd><a href="javascript:;">库存加入</a></dd>
+                            <dd><a href="javascript:;">库存信息修改</a></dd>
 
                         </dl>
                     </li>
@@ -95,7 +95,7 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
-                <table id="idTest" lay-filter="demo"></table>
+                
 
             </div>
         </div>
@@ -113,43 +113,9 @@
     <script>
 
         
-        //JavaScript代码区域
-        layui.use(['table', 'form', 'jquery', 'element', 'layer'], function () {
-            var table = layui.table;
-            var form = layui.form;
+        layui.use('element', function () {
             var element = layui.element;
-            var layer = layui.layer;
-            var laydate = layui.laydate;
-            var laypage=layui.laypage;
-            form.render('select');
-            table.render({
-                elem: '#idTest',
-                url: 'https://localhost:44370/api/Goods/Show',
-                cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
-                ,
-                title: '学生信息',
-                page: true //是否显示分页
-                ,
-                limit: 10 //每页默认显示的数量
-                , limits: [10, 20, 30, 40, 50]
-                , method: 'get'
-                , cols: [
-                    [
-                        { field: 'gid', title: '商品id', align: 'center' },
-                        { field: 'gname', title: '商品姓名', align: 'center' },
-                        { field: 'gscdata', title: '商品生产日期', align: 'center' },
-                        { field: 'gbz', title: '商品保质期', align: 'center' },
-                        { field: 'gzxbz', title: '商品执行编号', align: 'center' },
-                        { field: 'gphone', title: '商家联系电话', align: 'center' },
-                        { field: 'gnum', title: '库存数', align: 'center' }
 
-                    ]
-                ],
-                id: 'idTest'
-
-            });
-          
-           
         });
     </script>
 
