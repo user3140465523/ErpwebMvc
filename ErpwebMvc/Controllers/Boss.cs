@@ -29,5 +29,36 @@ namespace ErpwebMvc.Controllers
         {
             return View();
         }
+        public IActionResult ProduceAdd()
+        {
+            return View();
+        }
+        public IActionResult UserinfoAdd()
+        {
+            return View();
+        }
+        public IActionResult GoodsAdd()
+        {
+            return View();
+        }
+        
+        public IActionResult UserinfoDel()
+        {
+            return View();
+        }
+        public IActionResult GoodsDel()
+        {
+            return View();
+        }
+       
+        public IActionResult UserinfoUpt()
+        {
+            return View();
+        }
+        public IActionResult GoodsUpt()
+        {
+            return View();
+        }
+
     }
 }
