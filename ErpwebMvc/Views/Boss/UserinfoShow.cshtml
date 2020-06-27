@@ -95,16 +95,20 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
+                <div class="layui-inline">
+                    <input class="layui-input" name="name" id="name" autocomplete="off">
+                </div>
+                <button id="searchBtn" class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                 <table id="idTest" lay-filter="demo"></table>
-                <script type="text/html" id="sex">
-                    {{#  if(d.sex== true){ }}
-                    男
-                    {{#  } else if(d.sex== false) { }}
-                    女
-                    {{#  } }}
 
+                <script type="text/html" id="barDemo">
+
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 
                 </script>
+
 
             </div>
         </div>
@@ -133,7 +137,7 @@
             form.render('select');
             table.render({
                 elem: '#idTest',
-                url: 'https://localhost:44370/api/Userinfo/Show',
+                url: 'http://localhost:44370/api/Userinfo/Show',
                 cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                 ,
                 title: '用户信息',
@@ -152,8 +156,8 @@
                         { field: 'uage', title: '用户年龄', align: 'center' },
                         { field: 'usex', title: '用户性别', align: 'center' },
                      
-                        { field: 'salary', title: '用户工资', align: 'center' }
-                       
+                        { field: 'salary', title: '用户工资', align: 'center' },
+                        { fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo' }
 
                     ]
                 ],
@@ -162,9 +166,9 @@
             });
 
 
-        });
+        
         $("#searchBtn").on('click', function () {
-            var cId = $("#cId");
+           
             var name = $("#name");
 
             //执行重载
@@ -179,6 +183,74 @@
                 }
             });
         });
+        table.on('tool(demo)',
+            function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.msg('ID：' + data.Uid + ' 的查看操作');
+                } else if (obj.event === 'del') {
+                    layer.confirm('真的删除行么',
+                        function (index) {
+                            layer.close(index);
+                            //layer.alert('编辑行：<br>' + JSON.stringify(data));
+                            
+                            uid = data.uid;
+                            $.ajax({
+                                url: "http://localhost:44370/api/Userinfo/Del",
+                                dataType: "json",
+                                type: "post",
+                                data: '' + uid + '',
+                                contentType: "application/json",
+                                success: function (data) {
+                                    if (data > 0) {
+                                        layer.alert('已删除',
+                                            {
+                                                icon: 6,
+                                                yes: function (index) {
+                                                    layer.close(index);
+                                                    obj.del();
+                                                }
+                                            });
+
+                                    }
+                                    else {
+                                        layer.msg("删除失败", { icon: 5 });
+                                    }
+
+                                }
+
+                            });
+                        });
+                } else if (obj.event === 'edit') {
+                    //layer.alert('编辑行：<br>' + JSON.stringify(data));
+                    //页面层
+                    layer.open({
+                        type: 1,
+                        maxmin: true,
+                        title: "修改",
+                        area: ['500px', '500px'], //宽高
+                        content: $("#editdiv")
+                    });
+                    //重新渲染下拉
+                    
+
+                    //反填
+                    form.val('example',
+                        {
+                            "Uid": data.Uid,
+                            "Uname": data.Uname,
+                            "Uphone": data.Uphone,// "name": "value"
+                            "Uemail": Uemail,
+                            "Uage": Uage,
+                            "Usex": Usex,
+                            "Salary": Salary
+                        });
+                    //data.sex == true ? $("#nan").prop("checked", "checked") : $("#nv").prop("checked", "checked");
+                }
+            });
+
+        });
+        
     </script>
 
 </body>
