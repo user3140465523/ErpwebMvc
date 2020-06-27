@@ -3,14 +3,13 @@
     Layout = null;
 }
 
-<
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Erp</title>
-    <script src="~/layui/jquery-3.3.1.js"></script>
+    <script src="~/js/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
 
@@ -36,7 +35,7 @@
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+
                         贤心
                     </a>
                     <dl class="layui-nav-child">
@@ -55,8 +54,8 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">生产管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/ProduceAdd">添加生产</a></dd>
-                            <dd><a href="Boss/ProduceShow">生产排期</a></dd>
+                            <dd><a href="ProduceAdd">添加生产</a></dd>
+                            <dd><a href="ProduceShow">生产排期</a></dd>
 
 
                         </dl>
@@ -64,20 +63,20 @@
                     <li class="layui-nav-item">
                         <a href="javascript:;">员工管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/UserinfoShow">所有员工</a></dd>
-                            <dd><a href="Boss/UserinfoAdd">入职员工</a></dd>
-                            <dd><a href="Boss/UserinfoDel">开除员工</a></dd>
-                            <dd><a href="Boss/UserinfoUpt">员工信息修改</a></dd>
+                            <dd><a href="UserinfoShow">所有员工</a></dd>
+                            <dd><a href="UserinfoAdd">入职员工</a></dd>
+                            <dd><a href="UserinfoDel">开除员工</a></dd>
+                            <dd><a href="UserinfoUpt">员工信息修改</a></dd>
 
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">库存管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/GoodsShow">查看库存</a></dd>
-                            <dd><a href="Boss/GoodsAdd">库存加入</a></dd>
-                            <dd><a href="Boss/GoodsDel">库存删除</a></dd>
-                            <dd><a href="Boss/GoodsUpt">库存信息修改</a></dd>
+                            <dd><a href="GoodsShow">查看库存</a></dd>
+                            <dd><a href="GoodsAdd">库存加入</a></dd>
+                            <dd><a href="GoodsDel">库存删除</a></dd>
+                            <dd><a href="GoodsUpt">库存信息修改</a></dd>
 
                         </dl>
                     </li>
@@ -93,12 +92,60 @@
                 </ul>
             </div>
         </div>
-
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
+                <form class="layui-form" action="">
 
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">生产id:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="roleName" id="roleName" lay-verify="roleName" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入生产id" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">生产名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="addMoneys" id="addMoneys" lay-verify="addMoneys" autocomplete="off" placeholder="请输入生产名称" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
 
+                        <label class="layui-form-label">生产日期:</label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="remark" id="remark"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+
+                        <label class="layui-form-label">生产数量:</label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="num" id="num"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+
+                        <label class="layui-form-label">生产完成日期:</label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="date" id="date"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item">
+
+                        <button type="submit" class="layui-btn" id="lay_btn" lay-filter="add">
+                            立即提交
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -109,17 +156,63 @@
     </div>
 
 
+</body>
+</html>
+
 
 
 
     <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
 
+            //添加
+            $("#lay_btn").on('click', function () {
+                alert();
+                //layer.msg(JSON.stringify(data.field));
+                //int和bool得转换格式
+                var obj = {};
+                obj.Proid = parseInt($("#roleName").val());
+                obj.Proname = $("#addMoneys").val();
+                obj.Proscdate = $("#remark").val();
+                obj.Pronum = parseInt($("#num").val());
+                obj.Proyj = $("#date").val();
+                console.log(obj);
+                $.ajax({
+                    url: "http://localhost:44370/api/Produce/Add",
+                    dataType: "json",
+                    type: "post",
+                    data: Produce,
+                    accepts:"application/x--www-form-ur1encoded",
+                    contentType:" application/-www-form-ur1encoded",
+                    success: function (data) {
+                        if (data > 0) {
+                            layer.alert('添加成功',
+                                {
+                                    icon: 6,
+                                    yes: function (index) {
+                                        layer.close(index);
+                                        location.reload();
+                                    }
+                                });
 
-        layui.use('element', function () {
-            var element = layui.element;
+                        } else {
+                            layer.alert('添加失败', { icon: 5 });
+                        }
 
+                    }
+
+                });
+
+            });
         });
     </script>
 
-</body>
-</html>
+
+
+
+
+
