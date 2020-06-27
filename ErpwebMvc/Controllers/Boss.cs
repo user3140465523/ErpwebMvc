@@ -42,23 +42,10 @@ namespace ErpwebMvc.Controllers
             return View();
         }
         
-        public IActionResult UserinfoDel()
-        {
-            return View();
-        }
-        public IActionResult GoodsDel()
-        {
-            return View();
-        }
+        
+        
        
-        public IActionResult UserinfoUpt()
-        {
-            return View();
-        }
-        public IActionResult GoodsUpt()
-        {
-            return View();
-        }
-
+     
+       
     }
 }
