@@ -43,7 +43,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">退出</a></li>
+                <li class="layui-nav-item"><a href=""class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
             </ul>
         </div>
 
@@ -52,7 +52,7 @@
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;">生产管理</a>
+                        <a class="layui-icon layui-icon-dollar" style="font-size:20px; color:#1D8899;" href="javascript:;">生产管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="ProduceAdd">添加生产</a></dd>
                             <dd><a href="ProduceShow">生产排期</a></dd>
@@ -61,7 +61,7 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;">员工管理</a>
+                        <a class="layui-icon layui-icon-friends" style="font-size:20px; color:#1D8899;" href="javascript:;">员工管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="UserinfoShow">所有员工</a></dd>
                             <dd><a href="UserinfoAdd">入职员工</a></dd>
@@ -71,7 +71,7 @@
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;">库存管理</a>
+                        <a class="layui-icon layui-icon-form" style="font-size:20px; color:#1D8899;" href="javascript:;">库存管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="GoodsShow">查看库存</a></dd>
                             <dd><a href="GoodsAdd">库存加入</a></dd>
@@ -92,37 +92,43 @@
             </div>
         </div>
 
-        <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">
+            <div style="padding:15px 15px 15px 230px ;">
 
                 <form class="layui-form" lay-filter="example">
-                    <div style="display:none"id="editdiv">
+                    <div style="display:none" id="editdiv">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户id</label>
+                            <div class="layui-input-block">
+
+                                <input type="text" name="uid" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入员工名称" class="layui-input">
+                            </div>
+                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">用户姓名</label>
                             <div class="layui-input-block">
-                              
+
                                 <input type="text" name="uname" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入员工名称" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">手机</label>
                             <div class="layui-input-block">
-                               
+
                                 <input type="text" name="uphone" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入手机号" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">邮箱</label>
                             <div class="layui-input-block">
-                              
+
                                 <input type="text" name="uemail" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">年龄</label>
                             <div class="layui-input-block">
-                               
+
                                 <input type="text" name="uage" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入工资" class="layui-input">
                             </div>
                         </div>
@@ -139,7 +145,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">工资</label>
                             <div class="layui-input-block">
-                               
+
                                 <input type="text" name="salary" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入年龄" class="layui-input">
                             </div>
                         </div>
@@ -174,7 +180,7 @@
             <!-- 底部固定区域 -->
             © 专注Erp管理/ - 底部固定区域
         </div>
-    </div>
+   
 
 
 
@@ -240,6 +246,43 @@
                     }
                 });
             });
+            form.on('submit(edit)', function (data) {
+                //layer.msg(JSON.stringify(data.field));
+                //int和bool得转换格式
+                var obj = {};
+                obj.uname =data.field.uname;
+                obj.uphone = data.field.uphone;
+                obj.uemail = data.field.uemail;
+                obj.uage = data.field.uage;
+                obj.usex = data.field.usex == "false" ? false : true;
+                obj.salary = data.field.salary;
+                $.ajax({
+                    url: "http://localhost:44370/api/Userinfo/Upt",
+                    dataType: "json",
+                    type: "post",
+                    contentType: "application/json",
+                    data: JSON.stringify(obj),
+                    success: function (data) {
+                        if (data > 0) {
+                            layer.alert('修改成功',
+                                {
+                                    icon: 6,
+                                    yes: function (index) {
+                                        layer.close(index);
+                                        location.reload();
+                                    }
+                                });
+
+                        } else {
+                            layer.alert('修改失败', { icon: 5 });
+                        }
+
+                    }
+
+                });
+                return false;
+            });
+
             table.on('tool(demo)',
                 function (obj) {
                     var data = obj.data;
@@ -281,29 +324,28 @@
                     } else if (obj.event === 'edit') {
                         //layer.alert('编辑行：<br>' + JSON.stringify(data));
                         //页面层
-                        layer.open({
-                            type: 1,
-                            maxmin: true,
-                            title: "修改",
-                            area: ['500px', '500px'], //宽高
-                            content: $("#editdiv")
-                        });
-                        //重新渲染下拉
-                        form.render('select');
-
-                        //反填
+               
+                    layer.open({
+                        maxmin: true,
+                        type: 1,
+                        title: "修改",
+                        area: ['500px', '500px'], //宽高
+                        content: $("#editdiv"),
+                    });
+                    //重新渲染下拉
+                    //form.render('select');
+                    //反填
                         form.val('example',
                             {
-                                "uname": data.uname,
-                                "uphone": data.uphone,
-                                "uemail": data.uemail,// "name": "value"
-                                "uage": data.uage,
-                                "salary": data.salary
-                                
+                             "uid": data.uid,
+                            "uname": data.uname,
+                            "uphone": data.uphone,
+                            "uemail": data.uemail,// "name": "value"
+                            "uage": data.uage,
+                            "salary": data.salary,
 
-                            });
-
-                    }
+                        });
+                }
                 });
 
         });
