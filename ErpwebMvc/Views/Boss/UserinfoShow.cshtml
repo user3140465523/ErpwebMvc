@@ -95,10 +95,67 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
+
+                <form class="layui-form" lay-filter="example">
+                    <div style="display:none"id="editdiv">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">用户姓名</label>
+                            <div class="layui-input-block">
+                              
+                                <input type="text" name="uname" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入员工名称" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机</label>
+                            <div class="layui-input-block">
+                               
+                                <input type="text" name="uphone" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-block">
+                              
+                                <input type="text" name="uemail" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入邮箱" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">年龄</label>
+                            <div class="layui-input-block">
+                               
+                                <input type="text" name="uage" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入工资" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">性别</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="usex" value="true" id="nan" title="男" checked="">
+                                    <input type="radio" name="usex" value="false" id="nv" title="女">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">工资</label>
+                            <div class="layui-input-block">
+                               
+                                <input type="text" name="salary" lay-verify="required" lay-reqtext="名是必填项，岂能为空？" autocomplete="off" placeholder="请输入年龄" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="edit">修改</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
                 <div class="layui-inline">
                     <input class="layui-input" name="name" id="name" autocomplete="off">
                 </div>
-                <button id="searchBtn" class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+                <button id="searchBtn" class="layui-btn" data-type="reload"> <i class="layui-icon">&#xe615;</i>搜索</button>
                 <table id="idTest" lay-filter="demo"></table>
 
                 <script type="text/html" id="barDemo">
@@ -155,7 +212,7 @@
                         { field: 'uemail', title: '用户邮箱', align: 'center' },
                         { field: 'uage', title: '用户年龄', align: 'center' },
                         { field: 'usex', title: '用户性别', align: 'center' },
-                     
+
                         { field: 'salary', title: '用户工资', align: 'center' },
                         { fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo' }
 
@@ -166,91 +223,91 @@
             });
 
 
-        
-        $("#searchBtn").on('click', function () {
-           
-            var name = $("#name");
 
-            //执行重载
-            table.reload('idTest', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                , where: {
-                    name: name.val(),
-                    cId: parseInt(cId.val())
+            $("#searchBtn").on('click', function () {
 
-                }
+                var name = $("#name");
+
+                //执行重载
+                table.reload('idTest', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        name: name.val(),
+                        cId: parseInt(cId.val())
+
+                    }
+                });
             });
-        });
-        table.on('tool(demo)',
-            function (obj) {
-                var data = obj.data;
-                if (obj.event === 'detail') {
-                    layer.msg('ID：' + data.Uid + ' 的查看操作');
-                } else if (obj.event === 'del') {
-                    layer.confirm('真的删除行么',
-                        function (index) {
-                            layer.close(index);
-                            //layer.alert('编辑行：<br>' + JSON.stringify(data));
-                            
-                            uid = data.uid;
-                            $.ajax({
-                                url: "http://localhost:44370/api/Userinfo/Del",
-                                dataType: "json",
-                                type: "post",
-                                data: '' + uid + '',
-                                contentType: "application/json",
-                                success: function (data) {
-                                    if (data > 0) {
-                                        layer.alert('已删除',
-                                            {
-                                                icon: 6,
-                                                yes: function (index) {
-                                                    layer.close(index);
-                                                    obj.del();
-                                                }
-                                            });
+            table.on('tool(demo)',
+                function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'detail') {
+                        layer.msg('ID：' + data.Uid + ' 的查看操作');
+                    } else if (obj.event === 'del') {
+                        layer.confirm('真的删除行么',
+                            function (index) {
+                                layer.close(index);
+                                //layer.alert('编辑行：<br>' + JSON.stringify(data));
+
+                                uid = data.uid;
+                                $.ajax({
+                                    url: "http://localhost:44370/api/Userinfo/Del",
+                                    dataType: "json",
+                                    type: "post",
+                                    data: '' + uid + '',
+                                    contentType: "application/json",
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            layer.alert('已删除',
+                                                {
+                                                    icon: 6,
+                                                    yes: function (index) {
+                                                        layer.close(index);
+                                                        obj.del();
+                                                    }
+                                                });
+
+                                        }
+                                        else {
+                                            layer.msg("删除失败", { icon: 5 });
+                                        }
 
                                     }
-                                    else {
-                                        layer.msg("删除失败", { icon: 5 });
-                                    }
 
-                                }
+                                });
+                            });
+                    } else if (obj.event === 'edit') {
+                        //layer.alert('编辑行：<br>' + JSON.stringify(data));
+                        //页面层
+                        layer.open({
+                            type: 1,
+                            maxmin: true,
+                            title: "修改",
+                            area: ['500px', '500px'], //宽高
+                            content: $("#editdiv")
+                        });
+                        //重新渲染下拉
+                        form.render('select');
+
+                        //反填
+                        form.val('example',
+                            {
+                                "uname": data.uname,
+                                "uphone": data.uphone,
+                                "uemail": data.uemail,// "name": "value"
+                                "uage": data.uage,
+                                "salary": data.salary
+                                
 
                             });
-                        });
-                } else if (obj.event === 'edit') {
-                    //layer.alert('编辑行：<br>' + JSON.stringify(data));
-                    //页面层
-                    layer.open({
-                        type: 1,
-                        maxmin: true,
-                        title: "修改",
-                        area: ['500px', '500px'], //宽高
-                        content: $("#editdiv")
-                    });
-                    //重新渲染下拉
-                    
 
-                    //反填
-                    form.val('example',
-                        {
-                            "Uid": data.Uid,
-                            "Uname": data.Uname,
-                            "Uphone": data.Uphone,// "name": "value"
-                            "Uemail": Uemail,
-                            "Uage": Uage,
-                            "Usex": Usex,
-                            "Salary": Salary
-                        });
-                    //data.sex == true ? $("#nan").prop("checked", "checked") : $("#nv").prop("checked", "checked");
-                }
-            });
+                    }
+                });
 
         });
-        
+
     </script>
 
 </body>
