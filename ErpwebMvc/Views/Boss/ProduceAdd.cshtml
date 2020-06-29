@@ -92,14 +92,14 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            <div style="padding: 15px;">
+            <div style="padding: 300px 200px 200px 600px;">
                 <form class="layui-form" action="">
 
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">生产id:</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="roleName" id="roleName" lay-verify="roleName" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入生产id" class="layui-input">
+                                <input type="text" name="roleName" id="roleName" lay-verify="required" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入生产id" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">生产名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="addMoneys" id="addMoneys" lay-verify="addMoneys" autocomplete="off" placeholder="请输入生产名称" class="layui-input">
+                                <input type="text" name="addMoneys" id="addMoneys" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入生产名称" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
 
                         <label class="layui-form-label">生产数量:</label>
                         <div class="layui-input-inline">
-                            <textarea placeholder="请输入内容" class="layui-input" name="num" id="num"></textarea>
+                            <textarea placeholder="请输入内容" lay-verify="required" lay-reqtext="必填项，岂能为空？" class="layui-input" name="num" id="num"></textarea>
                         </div>
 
                     </div>
@@ -138,9 +138,7 @@
                     </div>
                     <div class="layui-form-item">
 
-                        <button id="lay_btn" type="button" class="layui-btn "  lay-filter="add">
-                            立即提交
-                        </button>
+                        <button id="lay_btn" type="submit" class="layui-btn " lay-submit="" lay-filter="add">立即提交</button>
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 
                     </div>
@@ -176,47 +174,43 @@
 
             });
             //添加
-            $("lay_btn").on('click', function () {
-                //layer.msg(JSON.stringify(data.field));
-                //int和bool得转换格式
-                var u = {
-                    "Proid" :$("#roleName").val(),
-                    "Proname" : $("#addMoneys").val(),
-                    "Proscdate" : $("#remark").val(),
-                    "Pronum" : $("#num").val(),
-                    "Proyj" : $("#date").val()
-                }
-            
-                $.ajax({
-                    url: "http://localhost:44370/api/Produce/Add",
-                    dataType: "text",
-                    type: "post",
-                    contentType: "application/x-www-form-urlencoded",
-                    data: u,
-                    success: function (data) {
-                        if (data > 0) {
-                            layer.alert('添加成功',
-                                {
-                                    icon: 6,
-                                    yes: function (index) {
-                                        layer.close(index);
-                                        location.reload();
-                                    }
-                                });
+            form.on('submit(add)',
+                function (data) {
+                    //layer.msg(JSON.stringify(data.field));
+                    //int和bool得转换格式
+                    var obj = {};
+                    obj.Proid = parseInt($("#roleName").val());
+                    obj.Proname = $("#addMoneys").val();
+                    var startdate = $("#test22");
+                    obj.Proscdate = $(startdate).val();
+                    obj.Pronum = parseInt($("#num").val());
+                    var enddate = $("#test25");
+                    obj.Proyj = $(enddate).val();
+                    $.ajax({
+                        url: "http://localhost:44370/api/Produce/Add",
+                        dataType: "json",
+                        type: "post",
+                        data: JSON.stringify(obj),
+                        contentType: "application/json",
+                        success: function (data) {
+                            //alert("成功");
+                            if (data > 0) {
+                                layer.alert('提交成功',
+                                    {
+                                        icon: 6,
+                                        yes: function (index) {
+                                            layer.close(index);
+                                            location.reload();
+                                        }
+                                    });
 
-                        } else {
-                            layer.alert('添加失败', { icon: 5 });
+                            } else {
+                                layer.alert('提交失败', { icon: 5 });
+                            }
                         }
-
-                    }, errr: function (msg) {
-                        console.log(msg)
-                    }
-
-
-
+                    });
+                    return false;
                 });
-
-            });
         });
     </script>
 
