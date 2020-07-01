@@ -43,7 +43,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
+                <li class="layui-nav-item"><a href="" class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
             </ul>
         </div>
 
@@ -65,7 +65,7 @@
                         <dl class="layui-nav-child">
                             <dd><a href="UserinfoShow">所有员工</a></dd>
                             <dd><a href="UserinfoAdd">入职员工</a></dd>
-                            
+
 
                         </dl>
                     </li>
@@ -74,12 +74,12 @@
                         <dl class="layui-nav-child">
                             <dd><a href="GoodsShow">查看库存</a></dd>
                             <dd><a href="GoodsAdd">库存加入</a></dd>
-                           
+
 
                         </dl>
                     </li>
                     <li class="layui-nav-item">
-                        <a  href="javascript:;">销量报表</a>
+                        <a href="javascript:;">销量报表</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">销量报表</a></dd>
 
@@ -101,13 +101,7 @@
                 </div>
                 <button id="searchBtn" class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
                 <table id="idTest" lay-filter="demo"></table>
-                <script type="text/html" id="barDemo">
 
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-
-                </script>
 
             </div>
         </div>
@@ -118,13 +112,20 @@
         </div>
     </div>
 
+    <script type="text/html" id="barDemo">
 
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 
+    </script>
 
-    <script>
+</body>
+</html>
 
+<script>
 
+   
         //JavaScript代码区域
         layui.use(['table', 'form', 'jquery', 'element', 'layer'], function () {
             var table = layui.table;
@@ -154,7 +155,7 @@
                         { field: 'gzxbz', title: '商品执行编号', align: 'center' },
                         { field: 'gphone', title: '商家联系电话', align: 'center' },
                         { field: 'gnum', title: '库存数', align: 'center' },
-                         { fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo' }
+                        { fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo' }
 
                     ]
                 ],
@@ -163,26 +164,92 @@
             });
 
 
-        });
-        //搜索
-        $("#searchBtn").on('click', function () {
-            var cId = $("#cId");
-            var name = $("#name");
-            
-            //执行重载
-            table.reload('idTest', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                , where: {
-                    name: name.val(),
-                    cId: parseInt(cId.val())
 
-                }
+            //搜索
+            $("#searchBtn").on('click', function () {
+                var cId = $("#cId");
+                var name = $("#name");
+
+                //执行重载
+                table.reload('idTest', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        name: name.val(),
+                        cId: parseInt(cId.val())
+
+                    }
+                });
             });
-        });
-    </script>
+            table.on('tool(demo)',
+                function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'detail') {
+                        layer.msg('ID：' + data.Gid + ' 的查看操作');
+                    } else if (obj.event === 'del') {
+                        layer.confirm('真的删除行么',
+                            function (index) {
+                                layer.close(index);
+                                //layer.alert('编辑行：<br>' + JSON.stringify(data));
 
-</body>
-</html>
+                                gid = data.gid;
+                                $.ajax({
+                                    url: "http://localhost:44370/api/Goods/Del",
+                                    dataType: "json",
+                                    type: "post",
+                                    data: '' + gid + '',
+                                    contentType: "application/json",
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            layer.alert('已删除',
+                                                {
+                                                    icon: 6,
+                                                    yes: function (index) {
+                                                        layer.close(index);
+                                                        obj.del();
+                                                    }
+                                                });
+
+                                        }
+                                        else {
+                                            layer.msg("删除失败", { icon: 5 });
+                                        }
+
+                                    }
+
+                                });
+                            });
+                    } else if (obj.event === 'edit') {
+                        //layer.alert('编辑行：<br>' + JSON.stringify(data));
+                        //页面层
+
+                        layer.open({
+                            maxmin: true,
+                            type: 1,
+                            title: "修改",
+                            area: ['500px', '500px'], //宽高
+                            content: $("#editdiv"),
+                        });
+                        //重新渲染下拉
+                        //form.render('select');
+                        //反填
+                        form.val('example',
+                            {
+                                "Gid": data.gid,
+                                "Gname": data.gname,
+                                "Gscdata": data.Gscdata,
+                                "Gbz": data.Gbz,// "name": "value"
+                                "Gphone": data.Gphone,
+                                "Gsum": data.Gsum,
+
+                            });
+                    }
+                });
+        });
+    
+</script>
+
+
+
 

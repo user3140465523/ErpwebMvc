@@ -151,7 +151,7 @@
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button type="submit" class="layui-btn" lay-submit="" lay-filter="edit">修改</button>
+                            <button type="submit" class="layui-btn" lay-submit="" id="laysubmit" lay-filter="edit">查看</button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
             <table id="idTest" lay-filter="demo"></table>
 
 
-             
+
         </div>
     </div>
 
@@ -175,16 +175,17 @@
     </div>
 
 
+    <script type="text/html" id="barDemo">
+
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+    </script>
+
 
 </body>
 </html>
-<script type="text/html" id="barDemo">
-
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-
-</script>
 
 <script>
 
@@ -246,112 +247,76 @@
                     }
                 });
             });
-            
 
-           table.on('tool(demo)',
-            function (obj) {
-                var data = obj.data;
-                if (obj.event === 'detail') {
-                    layer.msg('ID：' + data.Uid + ' 的查看操作');
-                } else if (obj.event === 'del') {
-                    layer.confirm('真的删除行么',
-                    function (index) {
-                        layer.close(index);
-                        //layer.alert('编辑行：<br>' + JSON.stringify(data));
 
-                        uid = data.uid;
-                        $.ajax({
-                            url: "http://localhost:44370/api/Userinfo/Del",
-                            dataType: "json",
-                            type: "post",
-                            data: '' + uid + '',
-                            contentType: "application/json",
-                            success: function (data) {
-                                if (data > 0) {
-                                    layer.alert('已删除',
-                                    {
-                                        icon: 6,
-                                        yes: function (index) {
-                                            layer.close(index);
-                                            obj.del();
+            table.on('tool(demo)',
+                function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'detail') {
+                        layer.msg('ID：' + data.Uid + ' 的查看操作');
+                    } else if (obj.event === 'del') {
+                        layer.confirm('真的删除行么',
+                            function (index) {
+                                layer.close(index);
+                                //layer.alert('编辑行：<br>' + JSON.stringify(data));
+
+                                uid = data.uid;
+                                $.ajax({
+                                    url: "http://localhost:44370/api/Userinfo/Del",
+                                    dataType: "json",
+                                    type: "post",
+                                    data: '' + uid + '',
+                                    contentType: "application/json",
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            layer.alert('已删除',
+                                                {
+                                                    icon: 6,
+                                                    yes: function (index) {
+                                                        layer.close(index);
+                                                        obj.del();
+                                                    }
+                                                });
+
                                         }
-                                    });
+                                        else {
+                                            layer.msg("删除失败", { icon: 5 });
+                                        }
 
-                                }
-                                else {
-                                    layer.msg("删除失败", { icon: 5 });
-                                }
-
-                            }
-
-                        });
-                    });
-                } else if (obj.event === 'edit') {
-                    //layer.alert('编辑行：<br>' + JSON.stringify(data));
-                    //页面层
-
-                    layer.open({
-                        maxmin: true,
-                        type: 1,
-                        title: "修改",
-                        area: ['500px', '500px'], //宽高
-                        content: $("#editdiv"),
-                    });
-                    //重新渲染下拉
-                    //form.render('select');
-                    //反填
-                    form.val('example',
-                    {
-                        "uid": data.uid,
-                        "uname": data.uname,
-                        "uphone": data.uphone,
-                        "uemail": data.uemail,// "name": "value"
-                        "uage": data.uage,
-                        "salary": data.salary,
-
-                    });
-                }
-            });
-            from.on('submit(edit)', function (data) {
-                //layer.msg(JSON.stringify(data.field));
-                //int和bool得转换格式
-                var obj = {};
-                obj.uid = $("#uid").val();
-                obj.uname = $("#uname").val();
-                obj.uphone = $("#uphone").val();
-                obj.uemail = date.field.uemail;
-                obj.uage = $("#uage").val();
-                obj.usex = $("#nan").val() == "false" ? false : true;
-                obj.salary = $("#salary").val();
-                $.ajax({
-                    url: "http://localhost:44370/api/Userinfo/Upt",
-                    dataType: "json",
-                    type: "text",
-                    contentType: "application/json",
-                    data: JSON.stringify(obj),
-                    success: function (data) {
-                        if (data > 0) {
-                            layer.alert('修改成功',
-                                {
-                                    icon: 6,
-                                    yes: function (index) {
-                                        layer.close(index);
-                                        location.reload();
                                     }
+
                                 });
+                            });
+                    } else if (obj.event === 'edit') {
+                        //layer.alert('编辑行：<br>' + JSON.stringify(data));
+                        //页面层
 
-                        } else {
-                            layer.alert('修改失败', { icon: 5 });
-                        }
+                        layer.open({
+                            maxmin: true,
+                            type: 1,
+                            title: "查看",
+                            area: ['500px', '500px'], //宽高
+                            content: $("#editdiv"),
+                        });
+                        //重新渲染下拉
+                        //form.render('select');
+                        //反填
+                        form.val('example',
+                            {
+                                "uid": data.uid,
+                                "uname": data.uname,
+                                "uphone": data.uphone,
+                                "uemail": data.uemail,// "name": "value"
+                                "uage": data.uage,
+                                "salary": data.salary,
 
+                            });
                     }
-
                 });
-                return false;
-            });
+
         });
 
     });
-    
+
 
 </script>
