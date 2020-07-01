@@ -1,0 +1,191 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>MneyShow</title>
+    <script src="~/layui/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">Erp后台管理<a style="color:crimson;">--职位:主管</a></div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">库存管理</a></li>
+                <li class="layui-nav-item"><a href="">员工管理</a></li>
+                <li class="layui-nav-item"><a href="">生产管理</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">查看日志</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="" class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="layui-icon layui-icon-dollar" style="font-size:20px; color:#1D8899;" href="javascript:;">权限审批</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="Manger/MneyShow">审批</a></dd>
+                            <dd><a href="">审批完成</a></dd>
+
+
+                        </dl>
+                    </li>
+                  
+
+                    <li class="layui-nav-item"><a href="">正在开发...</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">
+                <div class="demoTable">
+                    搜索用户名：
+                    <div class="layui-inline">
+                        <input class="layui-input" name="uname" id="uname" autocomplete="off">
+                    </div>
+                    <button id="searchBtn" class="layui-btn" data-type="reload">搜索</button>
+                </div>
+                <table id="idTest" lay-filter="demo"></table>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 专注Erp管理/ - 底部固定区域
+        </div>
+    </div>
+
+   
+    <script type="text/html" id="barDemo">
+
+
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="edits">同意</a>
+
+
+    </script>
+</body>
+
+</html>
+
+<script>
+    $(function () {
+        //JavaScript代码区域
+        layui.use(['table', 'form', 'jquery', 'element', 'layer'], function () {
+            var table = layui.table;
+            var form = layui.form;
+            var element = layui.element;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
+
+            form.render('select');
+            //显示
+            table.render({
+                elem: '#idTest',
+                url: 'http://localhost:44370/api/Addmoney/Show',
+                cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,
+                title: '申请员工显示',
+                page: true //是否显示分页
+                ,
+                limit: 2 //每页默认显示的数量
+                , limits: [5, 10, 20, 50, 100]
+                , method: 'get'
+                , cols: [
+                    [
+                        { field: 'aid', title: '加薪id', align: 'center' },
+                        { field: 'uname', title: '员工名称', align: 'center' },
+                        { field: 'roleName', title: '职位', align: 'center' },
+                        { field: 'addMoneys', title: '新增薪资', align: 'center' },
+                        { field: 'remark', title: '说明', align: 'center' },
+                        { fixed: 'right', title: '操作', width: 250, align: 'center', toolbar: '#barDemo' }
+
+                    ]
+                ],
+                id: 'idTest'
+            });
+            //搜索
+            $("#searchBtn").on('click', function () {
+                var uname = $("#uname");
+                form.render('select');
+                //执行重载
+                table.reload('idTest', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        uname: uname.val()
+                    }
+                });
+            });
+            //监听工具条
+            table.on('tool(demo)',
+                function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edits') {
+
+                        layer.confirm('确定同意吗',
+                            function (index) {
+                                layer.close(index);
+                                $.ajax({
+                                    url: "http://localhost:44370/api/Addmoney/Update?aid=" + data.aid,
+                                    dataType: "json",
+                                    type: "get",
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            obj.del();
+                                            layer.msg("同意成功", { icon: 5 });
+                                            
+                                        }
+                                        else {
+                                            layer.msg("同意失败", { icon: 5 });
+                                        }
+
+                                    }
+
+                                });
+                            });
+                    } 
+                });
+
+
+        });
+
+    });
+        
+  
+</script>
+

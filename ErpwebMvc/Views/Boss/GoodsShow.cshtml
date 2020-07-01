@@ -88,62 +88,63 @@
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
                 <form class="layui-form" action="">
-
-                    <div class="layui-form-item"style="display:none" id="editdiv">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">商品名称:</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="roleName" id="roleName" lay-verify="required" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
+                    <div style="display:none" id="editdiv">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">商品名称:</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="roleName" id="roleName" lay-verify="required" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">生产日期</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="addMoneys" id="addMoneys" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入生产日期" class="layui-input">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">生产日期</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="addMoneys" id="addMoneys" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入生产日期" class="layui-input">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item layui-form-text">
+                        <div class="layui-form-item layui-form-text">
 
-                        <label class="layui-form-label">保质期:</label>
+                            <label class="layui-form-label">保质期:</label>
 
-                        <div class="layui-input-inline">
-                            <input type="text" name="bzq" id="bzq" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入保质期" class="layui-input">
+                            <div class="layui-input-inline">
+                                <input type="text" name="bzq" id="bzq" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入保质期" class="layui-input">
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+
+                            <label class="layui-form-label">执行编号:</label>
+                            <div class="layui-input-inline">
+                                <textarea placeholder="请输入执行编号" lay-verify="required" lay-reqtext="必填项，岂能为空？" class="layui-input" name="bh" id="bh"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+
+                            <label class="layui-form-label">商家联系电话:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="phone" id="phone" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入商家联系电话" class="layui-input">
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+
+                            <label class="layui-form-label">库存:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sum" id="sum" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入库存" class="layui-input">
+                            </div>
+
                         </div>
 
-                    </div>
-                    <div class="layui-form-item layui-form-text">
+                        <div class="layui-form-item">
 
-                        <label class="layui-form-label">执行编号:</label>
-                        <div class="layui-input-inline">
-                            <textarea placeholder="请输入执行编号" lay-verify="required" lay-reqtext="必填项，岂能为空？" class="layui-input" name="bh" id="bh"></textarea>
+                            <button id="lay_btn" type="submit" class="layui-btn " lay-submit="" lay-filter="upt">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
                         </div>
-
-                    </div>
-                    <div class="layui-form-item layui-form-text">
-
-                        <label class="layui-form-label">商家联系电话:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="phone" id="phone" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入商家联系电话" class="layui-input">
-                        </div>
-
-                    </div>
-                    <div class="layui-form-item layui-form-text">
-
-                        <label class="layui-form-label">库存:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="sum" id="sum" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入库存" class="layui-input">
-                        </div>
-
-                    </div>
-
-                    <div class="layui-form-item">
-
-                        <button id="lay_btn" type="submit" class="layui-btn " lay-submit="" lay-filter="upt">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-
                     </div>
                 </form>
                 搜索姓名：

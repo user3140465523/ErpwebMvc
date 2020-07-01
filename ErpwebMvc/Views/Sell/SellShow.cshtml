@@ -4,20 +4,19 @@
 }
 
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Erp</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>SellShow</title>
     <script src="~/layui/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
-
 </head>
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">Erp后台管理<a style="color:crimson;">--职位:总裁</a></div>
+            <div class="layui-logo">Erp后台管理<a style="color:crimson;">--职位:销售员</a></div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="">库存管理</a></li>
@@ -43,7 +42,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
+                <li class="layui-nav-item"><a href=""class="layui-icon layui-icon-logout" style="font-size: 20px; color: #FF5722;">退出</a></li>
             </ul>
         </div>
 
@@ -51,34 +50,17 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="layui-icon layui-icon-dollar" style="font-size:20px; color:#1D8899;" href="javascript:;">生产管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="ProduceAdd">添加生产</a></dd>
-                            <dd><a href="ProduceShow">生产排期</a></dd>
-
-
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-friends" style="font-size:20px; color:#1D8899;" href="javascript:;">员工管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="Boss/UserinfoShow">所有员工</a></dd>
-                            <dd><a href="Boss/UserinfoAdd">入职员工</a></dd>
                      
-
-                        </dl>
-                    </li>
                     <li class="layui-nav-item">
-                        <a class="layui-icon layui-icon-form" style="font-size:20px; color:#1D8899;" href="javascript:;">库存管理</a>
+                        <a href="javascript:;"class="layui-icon layui-icon-home" style="font-size: 20px; color: #1E9FFF;">商品管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/GoodsShow">查看库存</a></dd>
-                            <dd><a href="Boss/GoodsAdd">库存加入</a></dd>
-                        
+                            <dd><a href="ShowGoods">查看商品</a></dd>
+                            <dd><a href="Faction">销量报表</a></dd>
+                            <dd><a href="Assess">销量评级</a></dd>
+                            <dd><a href="AddMoney">加薪申请</a></dd>
 
                         </dl>
                     </li>
-                   
                     <li class="layui-nav-item"><a href="">正在开发...</a></li>
                 </ul>
             </div>
@@ -87,28 +69,25 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
-                
+                 
 
             </div>
         </div>
 
-        <div class="layui-footer" >
+        <div class="layui-footer">
             <!-- 底部固定区域 -->
             © 专注Erp管理/ - 底部固定区域
         </div>
     </div>
 
-    
-    
-
-
     <script>
 
-        
-        layui.use('element', function () {
+
+        layui.use('element',function () {
             var element = layui.element;
 
         });
+       
     </script>
 
 </body>
