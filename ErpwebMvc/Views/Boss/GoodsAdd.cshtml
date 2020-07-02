@@ -10,6 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Erp</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/layui/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
@@ -142,7 +143,7 @@
 
                     <div class="layui-form-item">
 
-                        <button id="lay_btn" type="submit" class="layui-btn " lay-submit="" lay-filter="upt">立即提交</button>
+                        <button type="submit" class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
                         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 
                     </div>
@@ -166,27 +167,28 @@
 
 <script>
 
-    layui.use(['form', 'layedit', 'laydate', 'element'], function () {
-        var form = layui.form
-        var layer = layui.layer
-        var layedit = layui.layedit
-        var laydate = layui.laydate;
-        var element = layui.element;
+    $(function () {
+        layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+            var form = layui.form
+            var layer = layui.layer
+            var layedit = layui.layedit
+            var laydate = layui.laydate;
+            var element = layui.element;
 
-        //添加
-        form.on('submit(upt)',
-            function (data) {
+            //添加
+            form.on('submit(add)', function (data) {
                 //layer.msg(JSON.stringify(data.field));
                 //int和bool得转换格式
                 var obj = {};
                 obj.Gname = $("#roleName").val();
-                obj.Gscdata = $("#addMoneys").val();
+                var dde = $("#addMoneys");
+                obj.Gscdata = $(dde).val();
 
-                obj.Gbz = $("#bh").val();
+                obj.Gbz = $("#bzq").val();
                 obj.Gzxbz = $("#bh").val();
 
                 obj.Gphone = $("#phone").val();
-                obj.Gnum = $("#num").val();
+                obj.Gnum = parseInt($("#sum").val());
                 $.ajax({
                     url: "http://localhost:44370/api/Goods/Add",
                     dataType: "json",
@@ -197,13 +199,13 @@
 
                         if (data > 0) {
                             layer.alert('提交成功',
-                                {
-                                    icon: 6,
-                                    yes: function (index) {
-                                        layer.close(index);
-                                        location.reload();
-                                    }
-                                });
+                             {
+                                 icon: 6,
+                                 yes: function (index) {
+                                     layer.close(index);
+                                     location.reload();
+                                 }
+                             });
 
                         } else {
                             layer.alert('提交失败', { icon: 5 });
@@ -211,8 +213,10 @@
                     }
                 });
                 return false;
-            });
+                });
+        });
     });
+    
 </script>
 
 

@@ -78,85 +78,91 @@
 
                         </dl>
                     </li>
-                 
+
                     <li class="layui-nav-item"><a href="">正在开发...</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="layui-body">
-            <!-- 内容主体区域 -->
-            <div style="padding: 15px;">
-                <form class="layui-form" action="">
-                    <div style="display:none" id="editdiv">
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">商品名称:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="roleName" id="roleName" lay-verify="required" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">生产日期</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="addMoneys" id="addMoneys" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入生产日期" class="layui-input">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item layui-form-text">
 
-                            <label class="layui-form-label">保质期:</label>
-
-                            <div class="layui-input-inline">
-                                <input type="text" name="bzq" id="bzq" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入保质期" class="layui-input">
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item layui-form-text">
-
-                            <label class="layui-form-label">执行编号:</label>
-                            <div class="layui-input-inline">
-                                <textarea placeholder="请输入执行编号" lay-verify="required" lay-reqtext="必填项，岂能为空？" class="layui-input" name="bh" id="bh"></textarea>
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item layui-form-text">
-
-                            <label class="layui-form-label">商家联系电话:</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="phone" id="phone" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入商家联系电话" class="layui-input">
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item layui-form-text">
-
-                            <label class="layui-form-label">库存:</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="sum" id="sum" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入库存" class="layui-input">
-                            </div>
-
-                        </div>
-
-                        <div class="layui-form-item">
-
-                            <button id="lay_btn" type="submit" class="layui-btn " lay-submit="" lay-filter="upt">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-
+        <!-- 内容主体区域 -->
+        <div style="padding:15px 15px 15px 230px ;">
+            <form class="layui-form" action="">
+                <div style="display:none" id="editdiv">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">商品id:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="gid" id="gid" lay-verify="required" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
                         </div>
                     </div>
-                </form>
-                搜索姓名：
-                <div class="layui-inline">
-                    <input class="layui-input" name="name" id="name" autocomplete="off">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">商品名称:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="gname" id="gname" lay-verify="required" lay-reqtext="必填项，岂能为空？" autocomplete="off" placeholder="请输入商品名称" class="layui-input">
+                        </div>
+                    </div>
+
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">生产日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="gscdata" id="gscdata" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入生产日期" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item layui-form-text">
+
+                        <label class="layui-form-label">保质期:</label>
+
+                        <div class="layui-input-inline">
+                            <input type="text" name="bzq" id="bzq" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入保质期" class="layui-input">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+
+                        <label class="layui-form-label">执行编号:</label>
+                        <div class="layui-input-inline">
+                            <textarea placeholder="请输入执行编号" lay-verify="required" lay-reqtext="必填项，岂能为空？" class="layui-input" name="gzxbz" id="gzxbz"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+
+                        <label class="layui-form-label">商家联系电话:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="gphone" id="gphone" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入商家联系电话" class="layui-input">
+                        </div>
+
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+
+                        <label class="layui-form-label">库存:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="gsum" id="gsum" lay-verify="required" autocomplete="off" lay-reqtext="必填项，岂能为空？" placeholder="请输入库存" class="layui-input">
+                        </div>
+
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="submit" class="layui-btn" lay-submit="" id="laysubmit" lay-filter="edit">修改</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+
                 </div>
-                <button id="searchBtn" class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
-                <table id="idTest" lay-filter="demo"></table>
-
-
+            </form>
+            搜索姓名：
+            <div class="layui-inline">
+                <input class="layui-input" name="name" id="name" autocomplete="off">
             </div>
+            <button id="searchBtn" class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</button>
+            <table id="idTest" lay-filter="demo"></table>
+
+
         </div>
+
 
         <div class="layui-footer">
             <!-- 底部固定区域 -->
@@ -234,6 +240,48 @@
                     }
                 });
             });
+            form.on('submit(edit)',
+                function (data) {
+                    //layer.msg(JSON.stringify(data.field));
+                    //int和bool得转换格式
+                    var obj = {};
+                    obj.gid = parseInt($("#gid").val());
+                    obj.gname = $("#gname").val();
+                    var gscdata = $("#gscdata");
+                    obj.gscdata = $(gscdata).val();
+
+                    obj.gbz = $("#bzq").val();
+
+                    obj.gzxbz =$("#gzxbz").val();
+                   
+                    obj.gphone = $("#gphone").val();
+                    obj.gnum = parseInt($("#gsum").val());
+
+                    $.ajax({
+                        url: "http://localhost:44370/api/Goods/Upt",
+                        dataType: "json",
+                        type: "post",
+                        data: JSON.stringify(obj),
+                        contentType: "application/json",
+                        success: function (data) {
+
+                            if (data > 0) {
+                                layer.alert('修改成功',
+                                    {
+                                        icon: 6,
+                                        yes: function (index) {
+                                            layer.close(index);
+                                            location.reload();
+                                        }
+                                    });
+
+                            } else {
+                                layer.alert('修改失败', { icon: 5 });
+                            }
+                        }
+                    });
+                    return false;
+                });
             table.on('tool(demo)',
                 function (obj) {
                     var data = obj.data;
@@ -247,10 +295,9 @@
 
                                 gid = data.gid;
                                 $.ajax({
-                                    url: "http://localhost:44370/api/Goods/Del",
+                                    url: "http://localhost:44370/api/Goods/Del?id="+gid,
                                     dataType: "json",
                                     type: "post",
-                                    data: '' + gid + '',
                                     contentType: "application/json",
                                     success: function (data) {
                                         if (data > 0) {
@@ -284,17 +331,17 @@
                             content: $("#editdiv"),
                         });
                         //重新渲染下拉
-                        //form.render('select');
+                        form.render('select');
                         //反填
                         form.val('example',
                             {
-                               
-                                "Gname": data.roleName,
-                                "Gscdata": data.addMoneys,
-                                "Gbz": data.bzq,// "name": "value"
-                                "Gzxbz": data.bh,
-                                "Gphone": data.phone,
-                                "Gsum": data.sum,
+                                "Gid": data.gid,
+                                "gname": data.gname,
+                                "gscdata": data.gscdata,
+                                "gbz": data.gbz,// "name": "value"
+                                "gzxbz": data.gzxbz,
+                                "gphone": data.gphone,
+                                "gnum": data.gsum,
 
                             });
                     }
