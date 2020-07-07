@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Login\LoginLogsShow.cshtml" />
+    <None Include="Views\Login\Logins.cshtml" />
+    <None Include="Views\Login\Show.cshtml" />
+    <None Include="Views\Login\UptUserinfo.cshtml" />
     <None Include="Views\Manger\MneyShow.cshtml" />
     <None Include="Views\Sell\AddMoney.cshtml" />
     <None Include="Views\Sell\Assess.cshtml" />

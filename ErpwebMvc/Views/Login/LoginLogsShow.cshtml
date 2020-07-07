@@ -9,7 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Erp</title>
-    <script src="~/layui/jquery-3.3.1.js"></script>
+
+    <script src="~/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
 
@@ -17,7 +18,7 @@
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">Erp后台管理<a style="color:crimson;">--职位:总裁</a></div>
+            <div class="layui-logo">Erp后台管理</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="">库存管理</a></li>
@@ -27,7 +28,7 @@
                     <a href="javascript:;">其它系统</a>
                     <dl class="layui-nav-child">
                         <dd><a href="">邮件管理</a></dd>
-                        <dd><a href="Login/LoginLogsShow">查看日志</a></dd>
+                        <dd><a href="/login/LoginLogsShow">查看日志</a></dd>
                         <dd><a href="">授权管理</a></dd>
                     </dl>
                 </li>
@@ -40,10 +41,10 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
+                        <dd><a href="/login/UptUserinfo">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="Login/Logins"class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
+                <li class="layui-nav-item"><a href="/Login/Logins" class="layui-icon layui-icon-logout" style="font-size:20px; color:#FF0000;">退出</a></li>
             </ul>
         </div>
 
@@ -54,8 +55,8 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="layui-icon layui-icon-dollar" style="font-size:20px; color:#1D8899;" href="javascript:;">生产管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/ProduceAdd">添加生产</a></dd>
-                            <dd><a href="Boss/ProduceShow">生产排期</a></dd>
+                            <dd><a href="ProduceAdd">添加生产</a></dd>
+                            <dd><a href="ProduceShow">生产排期</a></dd>
 
 
                         </dl>
@@ -63,22 +64,22 @@
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-friends" style="font-size:20px; color:#1D8899;" href="javascript:;">员工管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/UserinfoShow">所有员工</a></dd>
-                            <dd><a href="Boss/UserinfoAdd">入职员工</a></dd>
-                     
+                            <dd><a href="UserinfoShow">所有员工</a></dd>
+                            <dd><a href="UserinfoAdd">入职员工</a></dd>
+
 
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a class="layui-icon layui-icon-form" style="font-size:20px; color:#1D8899;" href="javascript:;">库存管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="Boss/GoodsShow">查看库存</a></dd>
-                            <dd><a href="Boss/GoodsAdd">库存加入</a></dd>
-                        
+                            <dd><a href="GoodsShow">查看库存</a></dd>
+                            <dd><a href="GoodsAdd">库存加入</a></dd>
+
 
                         </dl>
                     </li>
-                   
+
                     <li class="layui-nav-item"><a href="">正在开发...</a></li>
                 </ul>
             </div>
@@ -87,29 +88,52 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
-                
+
+
+
+                <table id="idTest" lay-filter="demo"></table>
+
 
             </div>
         </div>
-
-        <div class="layui-footer" >
+        <div class="layui-footer">
             <!-- 底部固定区域 -->
             © 专注Erp管理/ - 底部固定区域
         </div>
     </div>
-
-    
-    
-
-
     <script>
-
-        
-        layui.use('element', function () {
+        //JavaScript代码区域
+        layui.use(['table', 'form', 'jquery', 'element', 'layer'], function () {
+            var table = layui.table;
+            var form = layui.form;
             var element = layui.element;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
 
+            form.render('select');
+            table.render({
+                elem: '#idTest',
+                url: 'http://localhost:44370/api/login/LoginLogsShow',
+                cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                ,
+                title: '生产信息',
+                page: true //是否显示分页
+                ,
+                limit: 10 //每页默认显示的数量
+                , limits: [10, 20, 30, 40, 50]
+                , method: 'get'
+                , cols: [
+                    [
+                        { field: 'id', title: '编号', align: 'center' },
+                        { field: 'ip', title: '地址', align: 'center' },
+                        { field: 'createTime', title: '登录时间', align: 'center' },
+                        { field: 'userAgent', title: '登录人', align: 'center' },
+                    ]
+                ],
+                id: 'idTest'
+            });
         });
-    </script>
 
+    </script>
 </body>
 </html>

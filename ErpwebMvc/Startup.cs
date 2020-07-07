@@ -50,7 +50,7 @@ namespace ErpwebMvc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Boss}/{action=BossShow}/{id?}");
+                    pattern: "{controller=Login}/{action=Logins}/{id?}");
             });
         }
     }

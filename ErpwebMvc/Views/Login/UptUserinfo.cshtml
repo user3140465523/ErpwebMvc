@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Uptregister";
+}
+
+<h1>Uptregister</h1>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <title></title>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/layui/layui/layui.js"></script>
+</head>
+<body>
+    <table class="alert-primary align-self-lg-start" width="800px" height="400px" summary="123">
+        <tr>
+            <td>用户名：</td>
+            <td><input id="TxtUname" type="text" /></td>
+        </tr>
+        <tr>
+            <td>请输入要修改的密码</td>
+            <td><input id="TxtUpass" type="password" /></td>
+        </tr>
+        <tr>
+            <td>邮箱号</td>
+            <td><input id="TxtUemail" type="text" /><input id="Button1hao" type="button" value="发送邮箱验证码" /></td>
+        </tr>
+        <tr>
+            <td>请输入您的邮箱验证码</td>
+            <td>
+                <input id="Txtemail" type="text" />
+                <input id="Buttonemail" type="button" value="验证" />
+            </td>
+        </tr>
+        <tr>
+            <td>确认修改密码</td>
+            <td>
+                <input id="Button1" type="button" value="修改密码" />
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+<script>
+    $("#Button1hao").click(function () {
+        var Email = $("#TxtUemail").val();
+        var emai = $("#Txtemail").val();
+        $.ajax({
+            url: "http://localhost:44370/api/Login/QQEmailCode?email=" + Email, //调用Api 给邮箱发送验证码方法 并传入收件人邮箱号
+            type: "Get",
+            dataType: "text",
+            success: function (result) {
+                alert("已经发送");
+                $("#Hidden1").val(result);
+            }
+        });
+    })
+</script>
+<script>
+    $("#Buttonemail").click(function () {
+        var emai = $("#Txtemail").val();
+        alert("验证成功");
+    })
+</script>
+<script>
+    $("#Button1").click(function () {
+        var Upass = $("#TxtUpass").val();
+        var Uemail = $("#TxtUemail").val();
+        var Uname = $("#TxtUname").val();
+        $.ajax({
+            url: "http://localhost:44370/api/login/UptUserInfo?Upass=" + Upass + "&Uemail=" + Uemail + "&Uname=" + Uname + "",
+
+            type: "post",
+            dataType: "json",
+            success: function (d) {
+                if (d > 0) {
+                    alert("修改密码成功");
+                }
+                else {
+                    alert("修改密码失败");
+                }
+            }
+        })
+    })
+</script>

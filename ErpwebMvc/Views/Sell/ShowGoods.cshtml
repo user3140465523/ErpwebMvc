@@ -143,6 +143,7 @@
 </script>
 <script language="javascript">
     $(function () {
+        StatisUptStsum();
 
         layui.use(['table', 'form', 'jquery', 'element', 'layer'], function () {
             var table = layui.table;
@@ -166,7 +167,24 @@
                         { field: 'Gnum', title: '库存', align: 'center' },
                         { fixed: 'right', title: '操作', width: 110, align: 'center', toolbar: '#barDemo', width: 150 }
                     ]
-                ]
+                ],
+                done: function (res, curr, count) {
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    //console.log(res);
+                    //得到当前页码
+                    //console.log(curr);
+                    //得到数据总量
+                    //console.log(count);
+                    $(".layui-table-box").find("[data-field='id']").css("display", "none");
+
+                    $("[data-field='Gnum']").children().each(function () {
+                        if ($(this).text() == 0) {
+                            $(this).text("无货")
+                        }
+                    });
+
+                }
             });
 
             //列表搜索
@@ -247,12 +265,20 @@
                             contentType: "application/json",
                             success: function (data) {
                                 if (data > 0) {
-                                    alert("删除成功");
-                                    GetReceiptData(where, dateTime);
+                                    layer.alert('删除成功',
+                                        {
+                                            icon: 6,
+                                            yes: function (index) {
+                                                layer.close(index);
+                                                location.reload();
+
+                                            }
+                                        });
+                                    //GetReceiptData(where, dateTime);
                                 }
                                 else {
-                                    alert("删除失败");
-                                    GetReceiptData(where, dateTime);
+                                    layer.alert('出售失败', { icon: 5 });
+                                    // GetReceiptData(where, dateTime);
                                 }
                             }
                         });
@@ -275,6 +301,25 @@
 
         });
     });
+    function StatisUptStsum() {
+
+        $.ajax({
+            url: "http://localhost:44370/api/Sell/StatisUptStnum",
+            type: "Post",
+            dataType: "JSON",
+            success: function (data) {
+                if (data == 777) {
+
+                }
+                else {
+                    alert("本月数据已清空嘿嘿");
+                }
+                
+            }
+        });
+    }
+    setInterval(StatisUptStsum(),1000*10);
+
 
    
     function StatisUpt(stid, num) {
